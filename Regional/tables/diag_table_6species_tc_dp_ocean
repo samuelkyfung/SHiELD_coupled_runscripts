@@ -1,14 +1,16 @@
 #output files
 "grid_spec",              -1,  "months",   1, "days",  "time"
 "atmos_static",           -1,  "hours",    1, "hours", "time"
-"atmos",                  1,  "hours",     1, "days",  "time"
-"nggps2d",                1,  "hours",     1, "hours", "time"
+#"atmos",                  1,  "hours",     1, "days",  "time"
+"atmos",                  1,  "hours",     1, "hours",  "time"
+"nggps2d",                0,  "hours",     1, "hours", "time"
 "ocean",                  1, "hours",     1, "days", "time"
 "fluxes",                 1, "hours",     1, "days", "time"
 "mixing",                 1, "hours",     1, "days", "time"
 
 #"ocean_daily",            1, "days",   1, "days", "time"
 #"nggps3d",                3,  "hours",     1, "days",  "time", 
+#"nggps3d",                0,  "hours",     1, "hours",  "time",
 #"tracer3d",               3,  "hours",     1, "hours", "time"
 #
 #output variables
@@ -98,36 +100,36 @@
 ###
 # hourly output
 ###
- "dynamics",  "vorts",     "vorts",    "atmos", "all", .false.,  "none", 2
- "dynamics",  "ts",     "ts",    "atmos", "all", .false.,  "none", 2
- "dynamics",  "tb",     "tb",    "atmos", "all", .false.,  "none", 2
- "dynamics",  "vort850",     "vort850",    "atmos", "all", .false.,  "none", 2
- "dynamics",  "vort200",     "vort200",    "atmos", "all", .false.,  "none", 2
+# "dynamics",  "vorts",     "vorts",    "atmos", "all", .false.,  "none", 2
+# "dynamics",  "ts",     "ts",    "atmos", "all", .false.,  "none", 2
+# "dynamics",  "tb",     "tb",    "atmos", "all", .false.,  "none", 2
+# "dynamics",  "vort850",     "vort850",    "atmos", "all", .false.,  "none", 2
+# "dynamics",  "vort200",     "vort200",    "atmos", "all", .false.,  "none", 2
  "dynamics",  "us",          "UGRDlowest",    "atmos", "all", .false.,  "none", 2
 # "dynamics",  "u1000",       "UGRD1000",      "atmos", "all", .false.,  "none", 2
 # "dynamics",  "u925",        "UGRD925",       "atmos", "all", .false.,  "none", 2
- "dynamics",  "u850",        "UGRD850",       "atmos", "all", .false.,  "none", 2
+# "dynamics",  "u850",        "UGRD850",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "u700",        "UGRD700",       "atmos", "all", .false.,  "none", 2
- "dynamics",  "u500",        "UGRD500",       "atmos", "all", .false.,  "none", 2
+# "dynamics",  "u500",        "UGRD500",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "u250",        "UGRD250",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "u200",        "UGRD200",       "atmos", "all", .false.,  "none", 2
 ###
  "dynamics",  "vs",          "VGRDlowest",    "atmos", "all", .false.,  "none", 2
 # "dynamics",  "v1000",       "VGRD1000",      "atmos", "all", .false.,  "none", 2
 # "dynamics",  "v925",        "VGRD925",       "atmos", "all", .false.,  "none", 2
- "dynamics",  "v850",        "VGRD850",       "atmos", "all", .false.,  "none", 2
+# "dynamics",  "v850",        "VGRD850",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "v700",        "VGRD700",       "atmos", "all", .false.,  "none", 2
- "dynamics",  "v500",        "VGRD500",       "atmos", "all", .false.,  "none", 2
+# "dynamics",  "v500",        "VGRD500",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "v250",        "VGRD250",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "v200",        "VGRD200",       "atmos", "all", .false.,  "none", 2
 ####
 # "dynamics",  "tb",          "TMPlowest",    "atmos", "all", .false.,  "none", 2
- "dynamics",  "tm",          "TMP500_300",   "atmos", "all", .false.,  "none", 2
+# "dynamics",  "tm",          "TMP500_300",   "atmos", "all", .false.,  "none", 2
 # "dynamics",  "t1000",       "TMP1000",      "atmos", "all", .false.,  "none", 2
 # "dynamics",  "t925",        "TMP925",       "atmos", "all", .false.,  "none", 2
- "dynamics",  "t850",        "TMP850",       "atmos", "all", .false.,  "none", 2
+# "dynamics",  "t850",        "TMP850",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "t700",        "TMP700",       "atmos", "all", .false.,  "none", 2
- "dynamics",  "t500",        "TMP500",       "atmos", "all", .false.,  "none", 2
+# "dynamics",  "t500",        "TMP500",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "t200",        "TMP200",       "atmos", "all", .false.,  "none", 2
 #### ###NOTE: This was changed to 'z' in IPDv4
 # "dynamics",  "z1000",       "HGT1000",      "atmos", "all", .false.,  "none", 2
@@ -139,19 +141,19 @@
 # "dynamics",  "z200",        "HGT200",       "atmos", "all", .false.,  "none", 2
 ####
 # "dynamics",  "w1000",       "w1000",      "atmos", "all", .false.,  "none", 2
- "dynamics",  "w850",        "w850",       "atmos", "all", .false.,  "none", 2
+# "dynamics",  "w850",        "w850",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "w700",        "w700",       "atmos", "all", .false.,  "none", 2
- "dynamics",  "w500",        "w500",       "atmos", "all", .false.,  "none", 2
+# "dynamics",  "w500",        "w500",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "w200",        "w200",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "w100",        "w100",       "atmos", "all", .false.,  "none", 2
- "dynamics",  "wmaxup",      "wmaxup",     "atmos", "all", .false.,  "none", 2
- "dynamics",  "wmaxdn",      "wmaxdn",     "atmos", "all", .false.,  "none", 2
+# "dynamics",  "wmaxup",      "wmaxup",     "atmos", "all", .false.,  "none", 2
+# "dynamics",  "wmaxdn",      "wmaxdn",     "atmos", "all", .false.,  "none", 2
 ####
 # "dynamics",  "q1000",       "Q1000",      "atmos", "all", .false.,  "none", 2
 # "dynamics",  "q925",        "Q925",       "atmos", "all", .false.,  "none", 2
- "dynamics",  "q850",        "Q850",       "atmos", "all", .false.,  "none", 2
+# "dynamics",  "q850",        "Q850",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "q700",        "Q700",       "atmos", "all", .false.,  "none", 2
- "dynamics",  "q500",        "Q500",       "atmos", "all", .false.,  "none", 2
+# "dynamics",  "q500",        "Q500",       "atmos", "all", .false.,  "none", 2
 ####
 # "dynamics",  "dp1000",       "DPT1000",      "atmos", "all", .false.,  "none", 2
 # "dynamics",  "dp925",        "DPT925",       "atmos", "all", .false.,  "none", 2
@@ -167,8 +169,8 @@
 # "dynamics",  "rh300",        "RH300",       "atmos", "all", .false.,  "none", 2
 # "dynamics",  "rh200",        "RH200",       "atmos", "all", .false.,  "none", 2
 ####
- "dynamics",  "slp",         "PRMSL",      "atmos", "all", .false.,  "none", 2
- "dynamics",  "ps",          "PRESsfc",    "atmos", "all", .false., "none", 2
+# "dynamics",  "slp",         "PRMSL",      "atmos", "all", .false.,  "none", 2
+# "dynamics",  "ps",          "PRESsfc",    "atmos", "all", .false., "none", 2
 # "dynamics",  "tq",          "tw_path",    "atmos", "all", .false., "none", 2
 # "dynamics",  "lw",          "lw_path",    "atmos", "all", .false., "none", 2
 # "dynamics",  "iw",          "iw_path",    "atmos", "all", .false., "none", 2
@@ -222,7 +224,7 @@
 # "dynamics",  "vcomp",        "vcomp",        "nggps3d",  "all",  .false.,  "none",  2
 # "dynamics",  "temp",         "temp",         "nggps3d",  "all",  .false.,  "none",  2
 # "dynamics",  "delp",        "delp",         "nggps3d",  "all",  .false.,  "none",  2
-# "dynamics",  "sphum",       "sphum",         "nggps3d",  "all",  .false.,  "none",  2
+# "dynamics",  "sphum",        "sphum",        "nggps3d",  "all",  .false.,  "none",  2
 # "dynamics",  "qn",           "clwmr",        "nggps3d",  "all",  .false.,  "none",  2
 # "dynamics",  "qp",           "qp",           "nggps3d",  "all",  .false.,  "none",  2
 # "dynamics",  "pfnh",         "nhpres",       "nggps3d",  "all",  .false.,  "none",  2
@@ -265,6 +267,11 @@
  "gfs_sfc",   "lhflx"          "lhflx"      "nggps2d",         "all",  .false.,  "none",  2
  "gfs_phys",  "acond"          "cmm"        "nggps2d",         "all",  .false.,  "none",  2
  "gfs_phys",  "sfexc"          "chh"        "nggps2d",         "all",  .false.,  "none",  2
+
+ "gfs_phys",  "tmp_hyblev1"     "t1"        "nggps2d",         "all",  .false.,  "none",  2
+ "gfs_phys",  "spfh_hyblev1"    "q1"        "nggps2d",         "all",  .false.,  "none",  2
+ "gfs_phys",  "ugrd_hyblev1"    "u1"        "nggps2d",         "all",  .false.,  "none",  2
+ "gfs_phys",  "vgrd_hyblev1"    "v1"        "nggps2d",         "all",  .false.,  "none",  2
 
 
 #"gfs_phys",  "srunoff"    "srunoff"    "gfs_physics",   "all",  .false.,  "none",  2

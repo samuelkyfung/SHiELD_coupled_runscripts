@@ -1,12 +1,10 @@
 #!/bin/tcsh
 #SBATCH --output=./stdout/%x.%j
-#SBATCH --job-name=Ortho_NWA1km_shiemom
-#SBATCH --clusters=stellar
-#SBATCH --partition=cimes
-#SBATCH --qos=cimes-short
-#SBATCH --time=5:00:00
+#SBATCH --job-name=1km_highres_1kmstype_canopy_stcsmcslc_f10mt2mq2muustarffmmtisfc_long
+#SBATCH --qos=stellar-short
+#SBATCH --time=1:30:00
 #SBATCH --account=cimes2
-#SBATCH --ntasks=288
+#SBATCH --ntasks=3600
 
 # Script to run Regional SHiELD+MOM6 over the NWA region
 # accepted resolution: 25km, 6km, 3km, Starting date: Sept, 20, 2024
@@ -19,11 +17,11 @@ set echo
 
 # NEEDS TO BE SET
 ################################
-set res = 384 # 25km
+#set res = 384 # 25km
 #set res = 738 # 13km
 #set res = 1600 # 6km
 #set res = 3200 # 3km
-#set res = 9600 # 1km
+set res = 9600 # 1km
 ################################
 
 echo "Cluster: $SLURM_CLUSTER_NAME"
@@ -60,17 +58,14 @@ if ( ! $?COMPILER ) then
   set COMPILER = "intel"
 endif
 
-set RELEASE = "SHiELD_test/Regional_couple_SHiEMOM/"
+set RELEASE = "SHiELD_test/Helene_uncouple_SHiELD/"
 
 # case specific details
 set TYPE = "nh"          # choices:  nh, hydro
 set MODE = "64bit"      # choices:  32bit, 64bit
 set CASE = "C${res}"
 set MONO = "non-mono"
-set NAME = "20240920.00Z"
-if (${res} == 9600) then
 set NAME = "20240926.00Z"
-endif
 set MEMO = "$SLURM_JOB_NAME.res$res"
 set PBL  = "TKE"        # choices:  TKE or YSU
 set HYPT = "off"         # choices:  on, off  (controls hyperthreading)
@@ -79,7 +74,7 @@ set NO_SEND = "no_send"  # choices:  send, no_send
 set EXE = "x"
 # directory structure
 set WORKDIR    = ${BASE_DIR}/${RELEASE}/${NAME}.${CASE}.${TYPE}.${MODE}.${COMPILER}.${MONO}.${MEMO}/
-set executable = ${BUILD_DIR}/Build/bin/SHiEMOM_${TYPE}.${COMP}.${MODE}.${COMPILER}.${EXE}
+set executable = ${BUILD_DIR}/Build/bin/SHiELD_${TYPE}.${COMP}.${MODE}.${COMPILER}.${EXE}
 
 # input filesets
 set FIX  = ${INPUT_DATA}/fix.v201810
@@ -102,8 +97,8 @@ set GRID = /gpfs/f5/gfdl_w/scratch/Joseph.Mouallem/UFS_OUT/PRETOOLS/my_grids/C${
 endif
 
 if (${SLURM_CLUSTER_NAME} == "stellar") then
-  set ICS = /scratch/cimes/mouallem/from_gaea/Coupled_SHiELD/INPUT/Regional_validation/NWA_A3km/IC/C${res}/${NAME}_IC/
-  set GRID = /scratch/cimes/mouallem/from_gaea/Coupled_SHiELD/INPUT/Regional_validation/NWA_A3km/GRID/C${res}/C${res}/
+  set ICS = /scratch/cimes/mouallem/from_gaea/Coupled_SHiELD/Ortho_Helene/IC/C${res}/${NAME}_IC/
+  set GRID = /scratch/cimes/mouallem/from_gaea/Coupled_SHiELD/Ortho_Helene/my_grids/C${res}/C${res}/
 endif
 
 # sending file to gfdl
@@ -166,8 +161,10 @@ case "9600":
    set k_split = "8"
    set n_split = "10"
    set dt_atmos = "180"
-   set layout_x = "120"
-   set layout_y = "120"
+   #set layout_x = "120"
+   #set layout_y = "120"
+   set layout_x = "60"
+   set layout_y = "60"
 endsw
 
 @ NIGLOBAL = ${npx} - 1 #remove the corners
@@ -184,8 +181,9 @@ set blocksize = "32"
 # run length
 set months = "0"
 set days = "0"
-set hours = "18"
+set hours = "4"
 set minutes = "0"
+#set minutes = "6"
 set seconds = "0"
 
 # PBL related settings
@@ -219,9 +217,10 @@ set n_zs_filter_nest = "1"
 
     # variables for gfs diagnostic output intervals and time to zero out time-accumulated data
 #    set fdiag = "6.,12.,18.,24.,30.,36.,42.,48.,54.,60.,66.,72.,78.,84.,90.,96.,102.,108.,114.,120.,126.,132.,138.,144.,150.,156.,162.,168.,174.,180.,186.,192.,198.,204.,210.,216.,222.,228.,234.,240."
+#set fdiag = "0.05"
 set fdiag = "1."
 set fhzer = "1."
-set fhcyc = "24."
+#set fhcyc = "24."
 set fhcyc = "0."
 
 # determines whether FV3 or GFS physics calculate geopotential
@@ -363,9 +362,33 @@ ln -sf ${GRID}/C${res}_grid.tile7.halo0.nc INPUT/grid.tile7.halo0.nc
 ln -sf ${GRID}/C${res}_oro_data.tile7.halo3.nc INPUT/oro_data.nc
 ln -sf ${GRID}/C${res}_oro_data.tile7.halo4.nc INPUT/oro_data.tile7.halo4.nc
 
+
+
 ln -sf ${ICS}/* INPUT/
 
-mv INPUT/sfc_data.tile7.nc INPUT/sfc_data.nc
+#mv INPUT/sfc_data.tile7.nc INPUT/sfc_data.nc
+
+# CTL
+#ln -sf /scratch/cimes/kf8430/1km_sfc_data/sfc_data_org.nc INPUT/sfc_data.nc
+
+# updated 1km vtype
+#ln -sf /scratch/cimes/kf8430/1km_sfc_data/sfc_data.vtype.nc INPUT/sfc_data.nc
+
+# updated 1km vtype, 1km stype, and slmsk
+#ln -sf /scratch/cimes/kf8430/1km_sfc_data/sfc_data.vtype_stype.nc INPUT/sfc_data.nc
+
+# updated 1km vtype, 1km stype, slmsk, and canopy
+#ln -sf /scratch/cimes/kf8430/1km_sfc_data/sfc_data.vtype_stype_canopy.nc INPUT/sfc_data.nc
+
+# update 1km vtype, stype, slmsk + smooth canopy, smc, slc, stc
+#ln -sf /scratch/cimes/kf8430/1km_sfc_data/sfc_data.vtype_stype_canopy_soilinit.nc INPUT/sfc_data.nc
+
+# update 1km vtype, stype, slmsk + smooth canopy, smc, slc, stc + smooth f10m, t2m, q2m, uustar, ffmm, tisfc
+ln -sf /scratch/cimes/kf8430/1km_sfc_data/sfc_data.vtype_stype_canopy_soilinit_metinit.nc INPUT/sfc_data.nc
+
+#ln -sf /scratch/cimes/kf8430/SHiELD_test/Helene_uncouple_SHiELD/oro_data_1km_stype.nc INPUT/oro_data.nc
+
+
 mv INPUT/gfs_data.tile7.nc INPUT/gfs_data.nc
 
 mv INPUT/C${res}_mosaic.nc INPUT/grid_spec.nc
@@ -616,7 +639,7 @@ cat >! input.nml <<EOF
      chksum_debug = $chksum_debug
      dycore_only = $dycore_only
      fdiag = $fdiag
-     fullcoupler_fluxes=1
+     fullcoupler_fluxes=0
 /
 
 &diag_manager_nml
@@ -729,11 +752,13 @@ cat >! input.nml <<EOF
        calendar = 'julian'
        atmos_nthreads = $nthreads
        use_hyper_thread = $hyperthread
-       do_ocean=.T.               !off with shield, on with shieldfull
+       ice_npes = -1
+       land_npes = -1
+       do_ocean=.F.               !off with shield, on with shieldfull
        dt_cpld = $dt_atmos        !off with shield, on with shieldfull
-       do_flux=.T.
+       do_flux=.F.
        do_land=.False.
-       do_ice=.T.
+       do_ice=.F.
        do_debug=.false.
 /
 
@@ -930,6 +955,9 @@ endif
 	exit
    endif
     @ irun++
+
+# remove the restart directory for less space
+rm -rf RESTART
 
 if ($NO_SEND == "no_send") then
   continue
